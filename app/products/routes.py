@@ -1,5 +1,5 @@
 import os
-from flask import Blueprint, redirect, render_template, request, url_for
+from flask import Blueprint, redirect, render_template, request, send_from_directory, url_for
 from flask_login import current_user, login_required
 from app import models, db
 
@@ -9,14 +9,15 @@ products = Blueprint('products', __name__, url_prefix='/products',
 @products.route("/")
 def products_list():
     user = current_user
+    prods = []
+    u = []
     if user.is_authenticated:
         print("User is authenticated")
 
-        print (models.Product.query.all())
+        prods = models.Product.query.all()
+        u = models.Customer.query.all()
 
-    else:
-        print("User is not authenticated")
-    return render_template("products.html")
+    return render_template("products.html", prods=prods, u=u)
 
 
 @products.route("/new", methods=["GET", "POST"])
@@ -55,3 +56,8 @@ def new_products():
         return redirect(url_for("products.new_products"))
 
     return render_template("new_products.html", categories=categories, socks_categories=socks_categories)
+
+
+@products.route('/products/img/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join(os.path.abspath(os.getcwd()), 'app', 'products', 'img'), filename)

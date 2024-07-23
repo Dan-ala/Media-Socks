@@ -3,15 +3,39 @@
 {% block content %}
 <div class="container">
     {% if current_user.is_authenticated %}
-        <p>Hello, <a href="{{ url_for('auth.logout') }}">Log out</a></p>
+    {% for h in u %}
+    <p><b>Hello, {{h.username}}</b> <a href="{{ url_for('auth.logout') }}">Log out</a></p>
+    {% endfor %}
 
-        <div class="gallery">
-            <div class="product">
-                
-            </div>
+    <div class="gallery">
+        <div class="product">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>nombre</th>
+                        <th>cantidad</th>
+                        <th>precio</th>
+                        <th>imagen</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for x in prods %}
+                    <tr>
+                        <td>{{x.product_name}}</td>
+                        <td>{{x.quantity}}</td>
+                        <td>{{ x.price }}</td>
+                        <td>
+                            <img src="{{ url_for('products.uploaded_file', filename=x.product_image) }}" alt="img"
+                                width="70px">
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         </div>
+    </div>
     {% else %}
-        <p><b>Hold on!</b> Please <a href="{{ url_for('auth.login') }}">Log in</a></p>
+    <p><b>Hold on!</b> Please <a href="{{ url_for('auth.login') }}">Log in</a></p>
     {% endif %}
 </div>
 {% endblock %}
