@@ -1,0 +1,59 @@
+<script>
+  function redirect(url){
+    location.href = url
+  }
+</script>
+
+{% extends 'base.html' %}
+
+{% block content %}
+{% if N == 1 %}
+<form id="auth-form" name="auth-form" action="{{ url_for('auth.login') }}" method="POST">
+  <img class="mb-4" src="{{ url_for('static', filename='media/admin-profile.jpg') }}" alt="" width="110" height="180">
+  <h1 class="h3 mb-3 fw-normal">Please sign in</h1>
+
+  <div class="form-floating">
+    <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" name="password_hash" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+
+  <br><br>
+  <input type="submit" value="Sign In" class="btn btn-success">
+  <input type="button" value="Sign Up" class="btn btn-info" onclick="redirect('/auth/register')">
+</form>
+{% endif %}
+
+{% if N == 2 %}
+<form id="auth-form" action="{{ url_for('auth.register') }}" method="POST">
+  <img class="mb-4" src="{{ url_for('static', filename='media/admin-profile.jpg') }}" alt="" width="110" height="180">
+  <h1 class="h3 mb-3 fw-normal">Please sign up</h1>
+
+  <div class="form-floating">
+    <input type="username" class="form-control" id="floatingInput" name="username" placeholder="username">
+    <label for="floatingInput">Username</label>
+  </div>
+
+  <div class="form-floating">
+    <input type="password" class="form-control" id="floatingPassword" name="password_hash" placeholder="Password">
+    <label for="floatingPassword">Password</label>
+  </div>
+
+  <div class="form-floating">
+    <input type="email" class="form-control" id="floatingInput" name="email" placeholder="name@example.com">
+    <label for="floatingInput">Email address</label>
+  </div>
+
+  <div class="form-floating">
+    <input type="text" class="form-control" id="floatingInput" name="phone_number" placeholder="Phone number">
+    <label for="floatingInput">Phone Number</label>
+  </div>
+
+  <input type="submit" value="Sign Up" class="btn btn-warning">
+</form>
+{% endif %}
+{% endblock %}

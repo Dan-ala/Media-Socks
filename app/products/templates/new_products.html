@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<form action="{{ url_for('products.new_products') }}" method="post" enctype="multipart/form-data">
+    <div>
+        <label for="category_id">Select category</label>
+        <select name="category_id" id="category_id">
+            {% for x in categories %}
+            <option value="{{ x.id }}">{{ x.category_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br>
+    <div>
+        <label for="socks_category_id">Select socks category</label>
+        <select name="socks_category_id" id="socks_category_id">
+            {% for j in socks_categories %}
+            <option value="{{ j.id }}">{{ j.socks_category_name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+    <br>
+    <div>
+        <label for="product_name">Name</label>
+        <input type="text" name="product_name" id="product_name" placeholder="Enter the name of the product">
+    </div>
+    <br>
+    <div>
+        <label for="quantity">Quantity</label>
+        <input type="number" name="quantity" id="quantity" placeholder="Enter the quantity">
+    </div>
+    <br>
+    <div>
+        <label for="price">Set Price</label>
+        <input type="number" name="price" id="price" placeholder="Type a price">
+    </div>
+    <br>
+    <div>
+        <label for="product_image">Upload an image</label>
+        <input type="file" name="product_image" id="product_image">
+    </div>
+    <br>
+    <button type="submit">Add Product</button>
+</form>
+{% endblock %}
