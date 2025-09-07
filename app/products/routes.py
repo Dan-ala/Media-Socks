@@ -57,6 +57,14 @@ def new_products():
 
     return render_template("new_products.html", categories=categories, socks_categories=socks_categories)
 
+@products.route('/delete/<int:product_id>', methods=['POST'])
+@login_required
+def delete_product(product_id):
+    product = models.Product.query.get_or_404(product_id)
+    db.session.delete(product)
+    db.session.commit()
+    return redirect(url_for('products.products_list'))
+
 
 @products.route('/products/img/<filename>')
 def uploaded_file(filename):

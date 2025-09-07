@@ -16,6 +16,7 @@
                         <th>cantidad</th>
                         <th>precio</th>
                         <th>imagen</th>
+                        <th>delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -27,6 +28,12 @@
                         <td>
                             <img src="{{ url_for('products.uploaded_file', filename=x.product_image) }}" alt="img"
                                 width="70px">
+                        </td>
+                        <td>
+                            <form action="{{ url_for('products.delete_product', product_id=x.id) }}" method="post">
+                                <input type="submit" value="Delete" class="btn btn-danger"
+                                    onclick="return confirm('Are you sure you want to delete this product?');">
+                            </form>
                         </td>
                     </tr>
                     {% endfor %}
