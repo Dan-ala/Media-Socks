@@ -2,6 +2,10 @@ class CustomerUserAdapter:
     def __init__(self, customer):
         self.customer = customer
 
+    @property
+    def id(self):
+        return self.customer.id
+
     def is_active(self):
         return True
 

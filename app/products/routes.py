@@ -14,8 +14,10 @@ def products_list():
     if user.is_authenticated:
         print("User is authenticated")
 
-        prods = models.Product.query.all()
-        u = models.Customer.query.all()
+        # Only get products for the current user
+        prods = models.Product.query.filter_by(id=user.id).all()
+        # Only get the current user
+        u = [user]
 
     return render_template("products.html", prods=prods, u=u)
 

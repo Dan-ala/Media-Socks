@@ -4,7 +4,7 @@
 <div class="container">
     {% if current_user.is_authenticated %}
     {% for h in u %}
-    <p><b>Hello, {{h.username}}</b> <a href="{{ url_for('auth.logout') }}">Log out</a></p>
+    <p><b>Hello, {{h.customer.username}}</b> <a href="{{ url_for('auth.logout') }}">Log out</a></p>
     {% endfor %}
 
     <div class="gallery">
